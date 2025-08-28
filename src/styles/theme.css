@@ -1,0 +1,474 @@
+/* src/styles/theme.css */
+/* =========================
+   Brand Tokens
+   ========================= */
+:root {
+  --c-cream: #fff7ec;
+  --c-coral: #ff7a59;
+  --c-teal: #00a6a6;
+  --c-sky: #eaf5ff;
+  --c-ink: #1f2937;
+  --c-gray: #6b7280;
+
+  --shadow-1: 0 6px 16px rgba(31, 41, 55, 0.08);
+  --shadow-2: 0 10px 24px rgba(31, 41, 55, 0.12);
+
+  /* 紙紋路徑 */
+  --tx-paper-frame: url('/textures/cardboard-1920x1080.png');
+  --tx-paper-card: url('/textures/paper.png');
+  --tx-paper-dark: url('/textures/notebook--dark--1920x1080.png');
+}
+
+/* =========================
+   Utilities
+   ========================= */
+.round-xl {
+  border-radius: 24px !important;
+}
+.round-2xl {
+  border-radius: 28px !important;
+}
+.soft-shadow {
+  box-shadow: var(--shadow-1) !important;
+}
+.soft-shadow-lg {
+  box-shadow: var(--shadow-2) !important;
+}
+
+.card-bleed {
+  background: var(--c-sky) !important;
+}
+.card-cream {
+  background: var(--c-cream) !important;
+}
+
+/* Subtle hover lift */
+.wiggle {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+.wiggle:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-2);
+}
+
+/* CTA buttons */
+.cta {
+  background: var(--c-coral) !important;
+  color: #fff !important;
+  border-radius: 999px !important;
+}
+.cta-tonal {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: var(--c-ink) !important;
+  border-radius: 999px !important;
+}
+/* merge: 按鈕統一放這裡 */
+.v-btn.cta {
+  color: #fff !important;
+  font-weight: 600;
+}
+.v-btn.cta.v-btn--disabled .v-btn__content {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.v-btn.cta .v-progress-circular {
+  color: #fff !important;
+}
+
+/* =========================
+   Decorative Dividers
+   ========================= */
+.wave-divider {
+  position: relative;
+  height: 24px;
+  background: transparent;
+}
+.wave-divider::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  top: -12px;
+  background: radial-gradient(12px 12px at 12px 12px, var(--c-cream) 12px, transparent 13px)
+    repeat-x;
+  background-size: 24px 24px;
+}
+
+.cloud-divider {
+  position: relative;
+  height: 28px;
+  background: transparent;
+  overflow: hidden;
+}
+.cloud-divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18px;
+  height: 36px;
+  background: radial-gradient(18px 18px at 18px 18px, var(--c-cream) 18px, transparent 19px)
+    repeat-x;
+  background-size: 36px 36px;
+}
+
+.zigzag {
+  height: 10px;
+  background:
+    linear-gradient(-45deg, transparent 75%, var(--c-cream) 75%) 0 0/20px 20px,
+    linear-gradient(45deg, transparent 75%, var(--c-cream) 75%) 10px 0/20px 20px;
+}
+
+/* Bunting */
+.bunting {
+  position: relative;
+  height: 46px;
+  margin: 12px 0 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.bunting::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 4%;
+  right: 4%;
+  border-top: 3px solid var(--c-coral);
+  transform: rotate(-1deg);
+}
+.bunting > span {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 18px solid;
+  transform: translateY(14px) rotate(2deg);
+}
+.bunting > span:nth-child(4n + 1) {
+  border-top-color: var(--c-coral);
+}
+.bunting > span:nth-child(4n + 2) {
+  border-top-color: var(--c-teal);
+}
+.bunting > span:nth-child(4n + 3) {
+  border-top-color: #7cc4ff;
+}
+.bunting > span:nth-child(4n + 4) {
+  border-top-color: #ffc857;
+}
+
+/* =========================
+   Empty / Error States
+   ========================= */
+.empty-state {
+  background: linear-gradient(180deg, rgba(255, 247, 236, 0.6), #fff);
+  border: 1px dashed rgba(0, 0, 0, 0.08);
+  color: var(--c-gray);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+}
+.empty-state .emoji {
+  font-size: 24px;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.error-state {
+  background: #fff;
+  border: 1px solid rgba(215, 38, 61, 0.15);
+  color: #9b2131;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* =========================
+   Typographic Bits
+   ========================= */
+.section-title {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--c-ink);
+}
+.subtitle-dim {
+  color: var(--c-gray);
+}
+
+/* Sticker label */
+.sticker {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #fff3;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-1);
+  font-size: 12px;
+}
+
+/* =========================
+   Vuetify Inputs — Focus / Hover（合併後版本）
+   ========================= */
+
+/* Base transition for fields */
+.v-field {
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+/* Hover (all variants): 奶油感底色 */
+.v-field:hover {
+  background-color: #fffaf3 !important;
+}
+.v-field:hover .v-field__overlay {
+  background-color: #fff7ef !important;
+}
+
+/* Variants overlay base */
+.v-field--variant-solo .v-field__overlay,
+.v-field--variant-filled .v-field__overlay {
+  background-color: #fffaf3 !important;
+}
+
+/* Focused: 奶油更亮、Coral 光暈、outline 染色、label 染色 */
+.v-field.v-field--focused {
+  box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.25) !important;
+  background-color: #fffdf8 !important;
+}
+.v-field.v-field--focused .v-field__overlay {
+  background-color: #fffdf8 !important;
+}
+.v-field.v-field--focused .v-field__outline__start,
+.v-field.v-field--focused .v-field__outline__end,
+.v-field.v-field--focused .v-field__outline__notch {
+  border-color: var(--c-coral) !important;
+}
+.v-field.v-field--focused .v-label,
+.v-field.v-field--active .v-label {
+  color: var(--c-coral) !important;
+}
+
+/* Selection controls: Focus ring + 勾選顏色統一 Coral */
+.v-selection-control.v-selection-control--focused {
+  border-radius: 8px;
+  box-shadow: 0 0 0 3px rgba(255, 122, 89, 0.25) !important;
+}
+.v-selection-control .v-selection-control__input .v-icon,
+.v-selection-control.v-selection-control--dirty .v-icon,
+.v-selection-control.v-selection-control--focused .v-icon {
+  color: var(--c-coral) !important;
+}
+
+/* File input icon 也用 Coral */
+.v-input.v-file-input .v-field__prepend-inner .v-icon {
+  color: var(--c-coral) !important;
+}
+
+/* =========================
+   Framed App Shell / Buttons
+   ========================= */
+.app-frame {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  /* inset: 12px; */
+  border: 16px solid var(--c-ink);
+  border-radius: 56px;
+  background: transparent;
+  overflow: clip;
+}
+.app-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* border-radius: inherit; */
+  background-image: var(--tx-paper-frame);
+  /* background-color: #9b2131; */
+  background-repeat: repeat;
+  /* 紋理顆粒大小*/
+  background-size: 1200px auto;
+  filter: contrast(1.05) brightness(1.02);
+  pointer-events: none;
+}
+.app-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: rgba(255, 247, 236, 0.86);
+  mix-blend-mode: multiply; /* 讓紙紋透出但不刺眼 */
+  pointer-events: none;
+}
+@media (max-width: 600px) {
+  .app-frame {
+    margin: 6px;
+    border-width: 4px;
+    border-radius: 12px;
+  }
+  .app-frame::before {
+    background-size: 420px auto;
+  }
+}
+#app,
+.v-app,
+.v-main {
+  position: relative;
+  z-index: 2;
+}
+
+/* FlowFest-like bubble button */
+.btn-bubble-pink {
+  --pink: #f8a8c1;
+  background: var(--pink) !important;
+  color: #111 !important;
+  border: 2px solid #111 !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px;
+  box-shadow:
+    0 4px 0 #111,
+    0 8px 16px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(0);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    filter 0.15s ease;
+}
+.btn-bubble-pink:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 0 #111,
+    0 12px 20px rgba(0, 0, 0, 0.12) !important;
+  filter: brightness(1.02);
+}
+.btn-bubble-pink:active {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 0 #111,
+    0 6px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 黃色登出按鈕 */
+.btn-logout-candy {
+  background: #ffc857 !important;
+  color: #111 !important;
+  border: 2px solid #111 !important;
+  border-radius: 999px !important;
+  box-shadow: 0 4px 0 #111;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.btn-logout-candy:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 0 #111,
+    0 12px 20px rgba(0, 0, 0, 0.12) !important;
+  filter: brightness(1.02);
+}
+.btn-logout-candy:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 0 #111;
+}
+/* 頭像 */
+.avatar-flower {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  background: #ffc857;
+  border: 2px solid #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  color: #111;
+
+  transition: transform 0.3s ease;
+}
+
+.avatar-flower:hover {
+  transform: rotate(15deg) scale(1.05);
+}
+
+/* =========================
+   Page Background & Fonts
+   ========================= */
+body {
+  background: var(--c-cream);
+}
+
+/* Brand title font */
+@font-face {
+  font-family: 'HoodBrandTitle';
+  src: url('/fonts/荊南波波黑-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font01';
+  src: url('/fonts/チェックポイントフォントCP Font.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font02';
+  src: url('/fonts/寒蟬圓黑體.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+.page-title::before {
+  content: '';
+  height: 3px;
+  color: #ff7a59;
+}
+
+/* 全域字體設定 */
+body,
+html #app {
+  font-family: 'font02', 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  color: var(--c-ink);
+  /* line-height: 1.6; */
+}
+
+/* 卡片顆粒紙感（公告卡、活動卡） */
+.card-paper {
+  position: relative;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.card-paper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-image: var(--tx-paper-card);
+  background-repeat: repeat;
+  background-size: 500px auto; /* 紋理顆粒大小（依喜好調） */
+  filter: contrast(1.04) brightness(1.01);
+  opacity: 0.9;
+}
+
+/* 想要更強一點的紙紋就多加這個 modifier */
+.card-paper.paper-strong::before {
+  background-size: 420px auto;
+  filter: contrast(1.08) brightness(0.98);
+  opacity: 0.95;
+}
