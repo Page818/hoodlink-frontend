@@ -1,7 +1,7 @@
 // services/api.js
 import axios from 'axios'
 
-const VITE_API_BASE_URL = process.env.VITE_API_BASE_URL || '/api';
+const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api';
 
 // 20250901
 const api = axios.create({
