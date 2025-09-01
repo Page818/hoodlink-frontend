@@ -1,6 +1,6 @@
 <!-- components/post/PostCard.vue -->
 <template>
-  <v-card class="hoverable" @click="$emit('click')">
+  <v-card class="hoverable post-card" @click="$emit('click')">
     <v-img :src="post.image" height="180px" cover />
 
     <v-card-title class="text-subtitle-1 font-weight-bold">

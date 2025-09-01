@@ -1,11 +1,11 @@
 <template>
-  <v-container class="py-6" fluid>
+  <v-container class="py-6 post-wall" fluid>
     <BackToDashboard :communityId="route.params.communityId || communityId" />
 
     <v-row justify="center">
       <v-col cols="12" style="max-width: 1200px">
         <div class="d-flex justify-space-between align-center mb-4">
-          <h2 class="text-h6 font-weight-bold">貼文牆</h2>
+          <h1 class="text-h4 mb-6 page-title">貼文牆</h1>
           <v-btn color="primary" @click="goToCreate">新增貼文</v-btn>
         </div>
 
@@ -36,15 +36,21 @@
               <v-row v-if="posts.length">
                 <v-col v-for="post in posts" :key="post._id" cols="12" sm="6" md="4">
                   <v-card
-                    class="pa-4 cursor-pointer"
+                    elevation="0"
+                    class="post-card pa-4 cursor-pointer mb-5"
+                    :style="{
+                      backgroundColor: colorMap[categoryColorMap[post.category] || 'yellow'],
+                      height: '200px',
+                    }"
                     hover
                     :ripple="true"
-                    style="height: 200px"
                     @click="handleOpen(post)"
                   >
-                    <div class="text-subtitle-1 font-weight-medium mb-1">{{ post.title }}</div>
-                    <div class="text-caption mb-2">{{ categoryName(post.category) }}</div>
-                    <div class="text-truncate">{{ post.content }}</div>
+                    <div class="post-tape"></div>
+
+                    <div class="post-title">{{ post.title }}</div>
+                    <div class="post-category mb-2">{{ categoryName(post.category) }}</div>
+                    <div class="text-truncate post-content">{{ post.content }}</div>
                   </v-card>
                 </v-col>
               </v-row>
@@ -96,6 +102,25 @@ const total = ref(0)
 // 分類（注意：'全部' 不會送到後端）
 const categories = ['全部', '鄰里閒聊', '推薦分享', '二手交換', '失物招領', '求助協尋', '其他']
 const category = ref('全部')
+
+// 分類對應顏色
+const categoryColorMap = {
+  鄰里閒聊: 'yellow',
+  推薦分享: 'pink',
+  二手交換: 'green',
+  失物招領: 'blue',
+  求助協尋: 'orange',
+  其他: 'gray',
+}
+
+const colorMap = {
+  yellow: '#fff8a6',
+  pink: '#ffd6d6',
+  green: '#d6f5d6',
+  blue: '#d6eaff',
+  orange: '#ffe4b5',
+  gray: '#f0f0f0',
+}
 
 // 衍生
 const totalPages = computed(() => {
@@ -174,3 +199,90 @@ onMounted(() => {
   fetchPosts()
 })
 </script>
+
+<style scoped>
+.post-wall :deep(.v-card) {
+  border-radius: 0 !important;
+}
+
+/* .post-tape 樣式在theme.css */
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+}
+
+.post-card {
+  position: relative;
+  width: 250px;
+  border: 2px solid #1f2937;
+  box-shadow: 5px 8px 3px rgba(0, 0, 0, 0.4) !important;
+  transform: rotate(-1deg);
+  font-family: 'Noto Sans TC', sans-serif;
+  transition: transform 0.2s;
+  /* overflow: hidden; */
+  border-radius: 0;
+  overflow: visible;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  /* transform: rotate(0deg) scale(1.03); */
+  box-shadow: 1px 16px 10px rgba(0, 0, 0, 0.25) !important;
+  animation: wiggle 0.3s ease-in-out;
+}
+/* 膠帶 在卡片hover時樣式改變 */
+.post-card:hover .post-tape {
+  opacity: 0.1;
+}
+
+.post-title {
+  font-weight: bold;
+  margin-bottom: 8px;
+  margin-top: 5px;
+  font-size: 1.3rem;
+  font-family: 'HoodBrandTitle';
+}
+
+.post-category {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1976d2;
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  font-family: 'font02';
+}
+
+.post-content {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.yellow {
+  background-color: #fff8a6;
+}
+.pink {
+  background-color: #ffd6d6;
+}
+.green {
+  background-color: #d6f5d6;
+}
+.blue {
+  background-color: #d6eaff;
+}
+.orange {
+  background-color: #ffe4b5;
+}
+.gray {
+  background-color: #f0f0f0;
+}
+</style>
