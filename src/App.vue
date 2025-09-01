@@ -5,9 +5,15 @@
       <!-- 中央品牌貼紙（維持原本位置） -->
       <div class="brand-badge clickable" @click="goDashboard">好鄰聚</div>
 
-      <!-- AppBar：高度 100px -->
-      <v-app-bar v-if="layout !== 'auth'" flat color="transparent" class="appbar ftc" height="100">
-        <!-- 左：主要 CTA（放大） -->
+      <!-- AppBar RWD-->
+      <v-app-bar
+        v-if="layout !== 'auth'"
+        flat
+        color="transparent"
+        class="appbar ftc responsive-appbar"
+        height="100"
+      >
+        <!-- 左側 CTA -->
         <template #prepend>
           <v-btn
             class="btn-bubble-pink appbar-btn appbar-btn--primary"
@@ -17,7 +23,7 @@
           </v-btn>
         </template>
 
-        <!-- 右：頭像 + 登出（放大、置中） -->
+        <!-- 右：頭像 + 登入/登出 -->
         <template #append>
           <div class="bar-right">
             <template v-if="isAuthed">
@@ -28,7 +34,7 @@
                 class="mr-4 appbar-btn--icon avatar-flower"
                 aria-label="個人頁面"
               >
-                <!-- 放大頭像 -->
+                <!-- 頭像 -->
                 <v-avatar size="40">
                   <template v-if="!loadingUser">
                     <v-img v-if="user?.avatarUrl" :src="user.avatarUrl" alt="avatar" cover />
@@ -255,6 +261,44 @@ body,
     top: 18px;
     padding: 6px 12px;
     font-size: 0.98rem;
+  }
+}
+@media (max-width: 768px) {
+  .brand-badge {
+    z-index: 1000;
+    pointer-events: none; /* 避免遮住按鈕點擊 */
+  }
+}
+
+@media (max-width: 768px) {
+  .v-main {
+    max-height: calc(100vh - 100px - 56px); /* 扣掉 AppBar 和 Footer 高度 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 768px) {
+  .appbar .v-toolbar__content {
+    height: 64px;
+    padding: 0 12px;
+  }
+
+  .appbar .appbar-btn {
+    font-size: 0.9rem;
+    padding: 0 12px !important;
+    height: 40px !important;
+  }
+
+  .appbar .appbar-btn--primary {
+    font-size: 1.1rem;
+    padding: 0 16px !important;
+    height: 44px !important;
+  }
+
+  .appbar .appbar-btn--icon {
+    width: 40px !important;
+    height: 40px !important;
   }
 }
 </style>

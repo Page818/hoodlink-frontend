@@ -92,7 +92,6 @@ body,
   font-family: var(--ui-font), var(--latin-font);
 }
 
-/* 滾動條 */
 .detail-wrapper {
   border-radius: 16px;
   clip-path: inset(0 round 16px);
@@ -101,7 +100,9 @@ body,
   border: 3px solid var(--ink-strong);
   overflow-y: auto;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-
+  max-height: var(--content-height); /* 根據 header/footer 調整 */
+  overflow-y: auto;
+  flex-grow: 1;
 }
 .detail-wrapper::before {
   content: '';
