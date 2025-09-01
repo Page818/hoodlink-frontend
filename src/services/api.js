@@ -3,6 +3,7 @@ import axios from 'axios'
 
 const API_BASE_URL = process.env.VITE_API_BASE_URL || '/api';
 
+// 20250901
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
@@ -10,6 +11,7 @@ const api = axios.create({
   },
 })
 
+// 原始
 // const api = axios.create({
 //   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
 //   headers: {
