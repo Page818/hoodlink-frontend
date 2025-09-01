@@ -1,11 +1,11 @@
 // services/api.js
 import axios from 'axios'
 
-const API_BASE_URL = process.env.VITE_API_BASE_URL || '/api';
+const VITE_API_BASE_URL = process.env.VITE_API_BASE_URL || '/api';
 
 // 20250901
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: VITE_API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
