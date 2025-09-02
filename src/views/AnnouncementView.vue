@@ -1,12 +1,7 @@
 <template>
   <v-container>
     <!-- 🔙 返回按鈕 -->
-    <BackToDashboard />
-
-    <!-- <h1 class="mb-4 page-title">
-      <v-icon>mdi-bullhorn-outline</v-icon>
-      社區公告
-    </h1> -->
+    <!-- <BackToDashboard /> -->
 
     <!-- 載入狀態 -->
     <v-progress-circular v-if="loading" indeterminate color="primary" />
@@ -47,6 +42,8 @@
       <template v-else>
         <!-- 桌機版：左右分欄 -->
         <v-col cols="12" md="4" class="list-section">
+          <BackToDashboard />
+
           <h1 class="mb-4 page-title">
             <v-icon>mdi-bullhorn-outline</v-icon>
             社區公告
@@ -57,7 +54,7 @@
             @select="handleSelect"
           />
         </v-col>
-        <v-col cols="12" md="8" class="detail-section">
+        <v-col cols="12" md="8" class="detail-section h-100">
           <AnnouncementDetail :announcement="selectedAnnouncement" />
         </v-col>
       </template>

@@ -10,15 +10,15 @@
           class="w-100 h-100 d-flex align-center justify-center text-white"
           :style="{ backgroundColor: colorFromId(colorSeed) }"
         >
-          <span class="text-body-2">{{ initials(displayName) }}</span>
+          <span class="text-body-3">{{ initials(displayName) }}</span>
         </div>
       </template>
     </v-avatar>
 
     <!-- 氣泡 -->
-    <div class="bubble pa-3">
+    <div class="bubble px-3 py-2">
       <div class="d-flex align-center justify-space-between">
-        <div class="text-caption text-medium-emphasis mb-1">
+        <div class="comment-name text-medium-emphasis">
           {{ displayName }}
         </div>
 
@@ -44,7 +44,7 @@
       </div>
 
       <!-- 一般顯示模式 -->
-      <div v-else class="text-body-2">{{ item.content || '' }}</div>
+      <div v-else class="comment-body">{{ item.content || '' }}</div>
       <div class="text-caption text-disabled mt-1">{{ formatTime(item.createdAt) }}</div>
     </div>
   </div>
@@ -132,8 +132,23 @@ const formatTime = (iso) => {
 
 <style scoped>
 .bubble {
-  background: var(--v-theme-surface-variant);
-  border-radius: 14px;
+  /* background: var(--v-theme-surface-variant); */
+  background: var(--c-cream);
+  border: 1px solid #000;
+  border-radius: 25px;
   max-width: 520px;
+}
+
+.comment-body {
+  font-family: 'font02';
+  font-size: 1rem;
+}
+.comment-name {
+  font-family: 'font02';
+  font-weight: 600;
+  margin-left: 5px;
+  font-size: 1rem;
+  /* text-decoration: wavy underline; */
+  /* text-decoration-color: brown; */
 }
 </style>

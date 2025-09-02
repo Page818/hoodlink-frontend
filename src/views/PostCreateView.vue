@@ -1,94 +1,103 @@
 <template>
   <v-container class="py-8" style="max-width: 900px">
     <BackToDashboard :communityId="communityId" />
-
-    <v-card class="pa-4">
-      <div class="text-h6 font-weight-bold mb-2">新增貼文</div>
-
-      <v-row>
-        <v-col cols="12">
-          <v-text-field
-            v-model="form.title"
-            label="標題"
-            variant="outlined"
-            :counter="60"
-            :error-messages="titleErrors"
-            @blur="touch.title = true"
+    <div class="h-100">
+      <v-card class="pa-4 postcard">
+        <div class="postcard-title mb-2">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/7531/7531688.png"
+            alt="icon"
+            width="24"
+            height="24"
+            style="vertical-align: middle"
           />
-        </v-col>
+          新增貼文
+        </div>
 
-        <v-col cols="12" md="6">
-          <v-select
-            v-model="form.category"
-            :items="POST_CATEGORIES"
-            label="分類"
-            variant="outlined"
-          />
-        </v-col>
+        <v-row>
+          <v-col cols="12">
+            <v-text-field
+              v-model="form.title"
+              label="標題"
+              variant="outlined"
+              :counter="60"
+              :error-messages="titleErrors"
+              @blur="touch.title = true"
+            />
+          </v-col>
 
-        <!-- 仍保留「圖片 URL（選填）」 -->
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.image"
-            label="圖片 URL（選填）"
-            variant="outlined"
-            :error-messages="imageErrors"
-            @blur="touch.image = true"
-            placeholder="https://…"
-          />
-        </v-col>
+          <v-col cols="12" md="6">
+            <v-select
+              v-model="form.category"
+              :items="POST_CATEGORIES"
+              label="分類"
+              variant="outlined"
+            />
+          </v-col>
 
-        <!-- ✅ Cloudinary 簽名上傳（選填） -->
-        <v-col cols="12" md="6">
-          <v-file-input
-            accept="image/*"
-            label="上傳圖片（選填）"
-            variant="outlined"
-            prepend-icon="mdi-image"
-            :disabled="uploading"
-            :multiple="false"
-            @update:modelValue="onPick"
-          />
-          <v-progress-linear v-if="uploading" :model-value="progress" height="6" class="mt-2" />
-          <v-img
-            v-if="form.image"
-            :src="transform(form.image, 'w_800,q_auto,f_auto')"
-            height="180"
-            class="mt-2 rounded-lg"
-            cover
-          />
-          <div class="d-flex ga-2 mt-2" v-if="form.image">
-            <v-btn size="small" variant="text" @click="openInNew">新視窗檢視</v-btn>
-            <v-btn size="small" variant="text" @click="removeImage">移除圖片</v-btn>
-          </div>
-        </v-col>
+          <!-- 仍保留「圖片 URL（選填）」 -->
+          <!-- <v-col cols="12" md="6">
+            <v-text-field
+              v-model="form.image"
+              label="圖片 URL（選填）"
+              variant="outlined"
+              :error-messages="imageErrors"
+              @blur="touch.image = true"
+              placeholder="https://…"
+            />
+          </v-col> -->
 
-        <v-col cols="12">
-          <v-textarea
-            v-model="form.content"
-            label="內容"
-            auto-grow
-            variant="outlined"
-            :counter="3000"
-            :error-messages="contentErrors"
-            @blur="touch.content = true"
-          />
-        </v-col>
-      </v-row>
+          <!-- ✅ Cloudinary 簽名上傳（選填） -->
+          <v-col cols="12" md="6">
+            <v-file-input
+              accept="image/*"
+              label="上傳圖片（選填）"
+              variant="outlined"
+              prepend-icon="mdi-image"
+              :disabled="uploading"
+              :multiple="false"
+              @update:modelValue="onPick"
+            />
+            <v-progress-linear v-if="uploading" :model-value="progress" height="6" class="mt-2" />
+            <v-img
+              v-if="form.image"
+              :src="transform(form.image, 'w_800,q_auto,f_auto')"
+              height="180"
+              class="mt-2 rounded-lg"
+              cover
+            />
+            <div class="d-flex ga-2 mt-2" v-if="form.image">
+              <v-btn size="small" variant="text" @click="openInNew">新視窗檢視</v-btn>
+              <v-btn size="small" variant="text" @click="removeImage">移除圖片</v-btn>
+            </div>
+          </v-col>
 
-      <div class="d-flex justify-end ga-2">
-        <v-btn variant="tonal" @click="goBack">取消</v-btn>
-        <v-btn
-          color="primary"
-          :loading="submitting"
-          :disabled="!isValid || submitting || uploading"
-          @click="submit"
-        >
-          建立貼文
-        </v-btn>
-      </div>
-    </v-card>
+          <v-col cols="12">
+            <v-textarea
+              v-model="form.content"
+              label="內容"
+              auto-grow
+              variant="outlined"
+              :counter="3000"
+              :error-messages="contentErrors"
+              @blur="touch.content = true"
+            />
+          </v-col>
+        </v-row>
 
+        <div class="d-flex justify-end ga-2">
+          <v-btn variant="tonal" @click="goBack">取消</v-btn>
+          <v-btn
+            color="primary"
+            :loading="submitting"
+            :disabled="!isValid || submitting || uploading"
+            @click="submit"
+          >
+            建立貼文
+          </v-btn>
+        </div>
+      </v-card>
+    </div>
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="2200" rounded="pill">
       {{ snackbar.message }}
     </v-snackbar>
@@ -233,3 +242,23 @@ const beforeUnload = (e) => {
 window.addEventListener('beforeunload', beforeUnload)
 onBeforeUnmount(() => window.removeEventListener('beforeunload', beforeUnload))
 </script>
+
+<style scoped>
+.postcard {
+  background: var(--cream);
+  border: 2px solid var(--ink-strong);
+  /* border-radius: 12px; */
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
+  font-family: 'font02', 'Times New Roman', Times, serif;
+
+  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.postcard-title {
+  font-size: 1.5rem;
+  font-family: 'font01';
+}
+</style>

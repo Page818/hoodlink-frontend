@@ -1,14 +1,22 @@
 <!-- views/EventView.vue -->
 <template>
   <v-container class="py-8">
-    <BackToDashboard :community-id="communityId" />
-
+    <!-- <BackToDashboard :community-id="communityId" />
     <div class="d-flex align-center justify-space-between mb-4">
       <h1 class="text-h5 font-weight-bold">活動一覽</h1>
-    </div>
+    </div> -->
 
-    <v-row>
+    <v-row class="h-100">
       <v-col cols="12" md="4" lg="3">
+        <BackToDashboard :community-id="communityId" />
+
+        <div class="d-flex align-center justify-space-between mb-4">
+          <h1 class="mb-4 page-title">
+            <v-icon> mdi-calendar-heart</v-icon>
+            活動一覽
+          </h1>
+        </div>
+
         <EventList
           :events="events"
           :selectedId="selectedId"

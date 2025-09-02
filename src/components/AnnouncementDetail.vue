@@ -48,5 +48,6 @@ const formatDate = (dateString) => {
   padding-bottom: 4px;
   font-family: 'HoodBrandTitle';
   font-size: 2.2rem;
+
 }
 </style>

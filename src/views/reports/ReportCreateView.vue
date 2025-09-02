@@ -1,100 +1,109 @@
 <template>
   <v-container class="py-8" style="max-width: 900px">
     <BackToDashboard :communityId="communityId" />
-
-    <v-card class="pa-4">
-      <div class="text-h6 font-weight-bold mb-3">異常回報</div>
-
-      <v-row>
-        <!-- 回報人（僅輔助：姓名/電話不入庫，會貼到 description 末端） -->
-        <v-col cols="12" md="6">
-          <v-text-field v-model="contact.name" label="稱謂(選填)" variant="outlined" />
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="contact.phone"
-            label="連絡電話(選填)"
-            type="tel"
-            variant="outlined"
+    <div class="h-100">
+      <v-card class="pa-4 report-card">
+        <div class="reportcard-title mb-2">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/807/807313.png"
+            alt="icon"
+            width="24"
+            height="24"
+            style="vertical-align: middle"
           />
-        </v-col>
+          異常回報
+        </div>
 
-        <!-- 主要欄位（對齊後端） -->
-        <v-col cols="12" md="6">
-          <v-select v-model="form.category" :items="CATEGORIES" label="分類" variant="outlined" />
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-text-field
-            v-model="form.location"
-            label="地點"
-            variant="outlined"
-            placeholder="例如：B棟 3F 電梯口"
-          />
-        </v-col>
+        <v-row>
+          <!-- 回報人（僅輔助：姓名/電話不入庫，會貼到 description 末端） -->
+          <v-col cols="12" md="6">
+            <v-text-field v-model="contact.name" label="稱謂(選填)" variant="outlined" />
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="contact.phone"
+              label="連絡電話(選填)"
+              type="tel"
+              variant="outlined"
+            />
+          </v-col>
 
-        <v-col cols="12">
-          <v-text-field
-            v-model="form.title"
-            label="問題標題"
-            variant="outlined"
-            :counter="100"
-            :error-messages="titleErrors"
-            @blur="touch.title = true"
-          />
-        </v-col>
+          <!-- 主要欄位（對齊後端） -->
+          <v-col cols="12" md="6">
+            <v-select v-model="form.category" :items="CATEGORIES" label="分類" variant="outlined" />
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="form.location"
+              label="地點"
+              variant="outlined"
+              placeholder="例如：B棟 3F 電梯口"
+            />
+          </v-col>
 
-        <v-col cols="12">
-          <v-textarea
-            v-model="form.description"
-            label="問題描述"
-            auto-grow
-            variant="outlined"
-            :counter="3000"
-            :error-messages="descErrors"
-            @blur="touch.description = true"
-            placeholder="請描述發生時間、位置、現象（例如：8/18 晚上 10:20，B棟 3F 電梯無法關門並持續警示音）"
-          />
-        </v-col>
+          <v-col cols="12">
+            <v-text-field
+              v-model="form.title"
+              label="問題標題"
+              variant="outlined"
+              :counter="100"
+              :error-messages="titleErrors"
+              @blur="touch.title = true"
+            />
+          </v-col>
 
-        <!-- 圖片上傳（選填） -->
-        <v-col cols="12" md="8">
-          <v-file-input
-            accept="image/*"
-            label="上傳圖片（選填）"
-            variant="outlined"
-            prepend-icon="mdi-image"
-            :disabled="uploading"
-            :multiple="false"
-            @update:modelValue="onPick"
-          />
-          <v-progress-linear v-if="uploading" :model-value="progress" height="6" class="mt-2" />
-          <v-img
-            v-if="form.image"
-            :src="transform(form.image, 'w_800,q_auto,f_auto')"
-            height="180"
-            class="mt-2 rounded-lg"
-            cover
-          />
-          <div class="d-flex ga-2 mt-2" v-if="form.image">
-            <v-btn size="small" variant="text" @click="openInNew">新視窗檢視</v-btn>
-            <v-btn size="small" variant="text" @click="form.image = ''">移除圖片</v-btn>
-          </div>
-        </v-col>
-      </v-row>
+          <v-col cols="12">
+            <v-textarea
+              v-model="form.description"
+              label="問題描述"
+              auto-grow
+              variant="outlined"
+              :counter="3000"
+              :error-messages="descErrors"
+              @blur="touch.description = true"
+              placeholder="請描述發生時間、位置、現象（例如：8/18 晚上 10:20，B棟 3F 電梯無法關門並持續警示音）"
+            />
+          </v-col>
 
-      <div class="d-flex justify-end ga-2">
-        <v-btn variant="tonal" @click="goBack">取消</v-btn>
-        <v-btn
-          color="primary"
-          :loading="submitting"
-          :disabled="!isValid || uploading"
-          @click="submit"
-        >
-          提交
-        </v-btn>
-      </div>
-    </v-card>
+          <!-- 圖片上傳（選填） -->
+          <v-col cols="12" md="8">
+            <v-file-input
+              accept="image/*"
+              label="上傳圖片（選填）"
+              variant="outlined"
+              prepend-icon="mdi-image"
+              :disabled="uploading"
+              :multiple="false"
+              @update:modelValue="onPick"
+            />
+            <v-progress-linear v-if="uploading" :model-value="progress" height="6" class="mt-2" />
+            <v-img
+              v-if="form.image"
+              :src="transform(form.image, 'w_800,q_auto,f_auto')"
+              height="180"
+              class="mt-2 rounded-lg"
+              cover
+            />
+            <div class="d-flex ga-2 mt-2" v-if="form.image">
+              <v-btn size="small" variant="text" @click="openInNew">新視窗檢視</v-btn>
+              <v-btn size="small" variant="text" @click="form.image = ''">移除圖片</v-btn>
+            </div>
+          </v-col>
+        </v-row>
 
+        <div class="d-flex justify-end ga-2">
+          <v-btn variant="tonal" @click="goBack">取消</v-btn>
+          <v-btn
+            color="primary"
+            :loading="submitting"
+            :disabled="!isValid || uploading"
+            @click="submit"
+          >
+            提交
+          </v-btn>
+        </div>
+      </v-card>
+    </div>
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" timeout="2200" rounded="pill">
       {{ snackbar.message }}
     </v-snackbar>
@@ -208,3 +217,22 @@ async function submit() {
   }
 }
 </script>
+
+<style scoped>
+.report-card {
+  background: var(--cream);
+  border: 2px solid var(--ink-strong);
+  /* border-radius: 12px; */
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
+  font-family: 'font02', 'Times New Roman', Times, serif;
+
+  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
+  flex-grow: 1;
+  overflow-y: auto;
+}
+.reportcard-title {
+  font-size: 1.5rem;
+  font-family: 'font01';
+}
+</style>

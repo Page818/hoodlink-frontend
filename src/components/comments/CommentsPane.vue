@@ -1,44 +1,48 @@
 <!-- /components/comments/CommentsPane.vue -->
 <template>
-  <v-card class="h-100 d-flex flex-column">
-    <div class="px-4 py-3 text-subtitle-1 font-weight-medium">留言</div>
-    <v-divider />
+  <div class="h-100">
+    <v-card class="d-flex flex-column comments-pane">
+      <div class="px-4 py-1 pane-title">留言</div>
+      <v-divider />
 
-    <!-- 內容區 -->
-    <div class="px-4 py-3 flex-1 overflow-y-auto">
-      <v-skeleton-loader v-if="loading" type="list-item-two-line@4" />
-      <v-alert v-else-if="error" type="error" variant="tonal" class="mb-3">{{ error }}</v-alert>
+      <!-- 內容區 -->
+      <div class="px-4 py-3 flex-1 overflow-y-auto">
+        <v-skeleton-loader v-if="loading" type="list-item-two-line@4" />
+        <v-alert v-else-if="error" type="error" variant="tonal" class="mb-3">{{ error }}</v-alert>
 
-      <template v-else>
-        <div v-for="c in comments" :key="c._id" class="mb-4">
-          <CommentItem :item="c" :currentUserId="myId" @update="handleUpdate" />
-        </div>
-        <div v-if="comments.length === 0" class="text-caption text-medium-emphasis">
-          尚無留言，搶頭香吧！
-        </div>
-      </template>
-    </div>
+        <template v-else>
+          <div v-for="c in comments" :key="c._id" class="mb-4">
+            <CommentItem :item="c" :currentUserId="myId" @update="handleUpdate" />
+          </div>
+          <div v-if="comments.length === 0" class="text-caption text-medium-emphasis">
+            尚無留言，搶頭香吧！
+          </div>
+        </template>
+      </div>
 
-    <v-divider />
+      <v-divider />
 
-    <!-- 新增留言 -->
-    <div class="px-3 py-3 d-flex ga-2">
-      <v-text-field
-        v-model="draft"
-        density="comfortable"
-        variant="outlined"
-        placeholder="寫下留言…"
-        hide-details
-        :disabled="!isAuthed"
-        @keydown.enter.exact.prevent="submit"
-      />
-      <v-btn :loading="sending" :disabled="!draft.trim() || !isAuthed" @click="submit">送出</v-btn>
-    </div>
+      <!-- 新增留言 -->
+      <div class="px-3 py-3 d-flex ga-2">
+        <v-text-field
+          v-model="draft"
+          density="comfortable"
+          variant="outlined"
+          placeholder="寫下留言…"
+          hide-details
+          :disabled="!isAuthed"
+          @keydown.enter.exact.prevent="submit"
+        />
+        <v-btn :loading="sending" :disabled="!draft.trim() || !isAuthed" @click="submit"
+          >送出</v-btn
+        >
+      </div>
 
-    <v-alert v-if="!isAuthed" type="info" variant="tonal" class="mx-4 mb-3">
-      請先登入以留言
-    </v-alert>
-  </v-card>
+      <v-alert v-if="!isAuthed" type="info" variant="tonal" class="mx-4 mb-3">
+        請先登入以留言
+      </v-alert>
+    </v-card>
+  </div>
 </template>
 
 <script setup>
@@ -132,3 +136,18 @@ onMounted(fetchComments)
 watch(() => props.postId, fetchComments)
 watch(() => props.sort, fetchComments)
 </script>
+
+<style scoped>
+.comments-pane {
+  background: #ffc75757;
+  border: 10px dotted #b7410e;
+  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
+  flex-grow: 1;
+}
+
+.pane-title {
+  font-family: 'HoodBrandTitle';
+  font-size: 1.5rem;
+}
+</style>

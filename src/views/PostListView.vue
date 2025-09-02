@@ -5,26 +5,32 @@
     <v-row justify="center">
       <v-col cols="12" style="max-width: 1200px">
         <div class="d-flex justify-space-between align-center mb-4">
-          <h1 class="text-h4 mb-6 page-title">貼文牆</h1>
-          <v-btn color="primary" @click="goToCreate">新增貼文</v-btn>
+          <!-- <h1 class="text-h4 mb-6 page-title">貼文牆</h1> -->
+          <!-- <v-btn color="primary" @click="goToCreate">新增貼文</v-btn> -->
         </div>
 
         <v-row>
           <!-- 分類選單 -->
           <v-col cols="12" md="3" style="min-width: 200px">
-            <v-card flat class="pa-4">
-              <h3 class="text-subtitle-1 mb-2">分類篩選</h3>
+            <h1 class="mb-6 page-title">
+              <v-icon>mdi-message-text-outline</v-icon>
+              貼文牆
+              <v-btn @click="goToCreate" class="btn-create-post">＋新增貼文</v-btn>
+            </h1>
+
+            <div class="pa-4 post-filter">
+              <h3 class="headline-vintage mb-2">分類篩選</h3>
               <v-btn
                 v-for="c in categories"
                 :key="c"
                 variant="text"
-                class="mb-2 text-no-wrap"
-                :color="category === c ? 'primary' : ''"
+                class="mb-2 filter-tag"
+                :class="{ active: category === c }"
                 @click="handleCategoryChange(c)"
               >
                 {{ c }}
               </v-btn>
-            </v-card>
+            </div>
           </v-col>
 
           <!-- 貼文清單 -->
@@ -201,6 +207,39 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.post-filter {
+  padding: 24px;
+  /* background: var(--c-cream); */
+  font-family: 'font02', 'Noto Sans TC', sans-serif;
+  border-left: 2px dashed var(--c-ink);
+  position: relative;
+}
+
+.filter-tag {
+  display: block;
+  padding: 6px 12px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+  /* border-radius: 0 !important; */
+}
+.filter-tag:hover {
+  background: #ff7a5991;
+  /* border-left-color: var(--c-coral); */
+  font-weight: 600;
+}
+/* 選中效果 */
+.filter-tag.active {
+  position: relative;
+  border: 2px solid #000;
+  background: #ff7a59d3;
+
+  font-weight: 700;
+  z-index: 1;
+}
+
+/* 貼文列表 */
 .post-wall :deep(.v-card) {
   border-radius: 0 !important;
 }

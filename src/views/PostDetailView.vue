@@ -5,22 +5,30 @@
     <v-row>
       <!-- 貼文內容區 -->
       <v-col cols="12" md="8">
-        <v-card>
+        <v-card class="letter-wrapper">
           <!-- 圖片（瀏覽模式） -->
-          <v-img v-if="post?.image && !isEditing" :src="post.image" height="300" cover />
+          <v-img
+            v-if="post?.image && !isEditing"
+            :src="post.image"
+            height="300"
+            cover
+            class="letter-image"
+          />
 
           <!-- 標題列：返回 + 編輯/刪除 -->
           <v-card-title class="d-flex align-center">
-            <span class="text-h6 font-weight-bold">
+            <span class="letter-title">
               {{ isEditing ? '編輯貼文' : post?.title || '' }}
             </span>
             <v-spacer />
-            <v-btn variant="tonal" prepend-icon="mdi-chevron-left" @click="goBack">返回列表</v-btn>
+            <v-btn color="grassGreen" variant="flat" prepend-icon="mdi-chevron-left" @click="goBack"
+              >返回列表</v-btn
+            >
             <template v-if="isOwner">
               <v-btn
                 v-if="!isEditing"
                 class="ml-2"
-                variant="tonal"
+                variant="plain"
                 color="primary"
                 @click="startEdit"
                 >編輯</v-btn
@@ -28,7 +36,7 @@
               <v-btn
                 v-if="!isEditing"
                 class="ml-2"
-                variant="tonal"
+                variant="plain"
                 color="error"
                 @click="deletePost"
                 >刪除貼文</v-btn
@@ -37,12 +45,12 @@
           </v-card-title>
 
           <!-- 資訊列（瀏覽模式） -->
-          <v-card-subtitle v-if="!isEditing">
+          <v-card-subtitle v-if="!isEditing" class="letter-subtitle">
             {{ post?.category }}・{{ formatTime(post?.createdAt) }}
           </v-card-subtitle>
 
           <!-- 內容（瀏覽模式） -->
-          <v-card-text v-if="!isEditing">
+          <v-card-text v-if="!isEditing" style="white-space: pre-wrap">
             <div class="mb-3">{{ post?.content }}</div>
           </v-card-text>
 
@@ -102,8 +110,8 @@
                   cover
                 />
                 <div class="d-flex ga-2 mt-2" v-if="form.image">
-                  <v-btn size="small" variant="text" @click="openInNew">新視窗檢視</v-btn>
-                  <v-btn size="small" variant="text" @click="removeImage">移除圖片</v-btn>
+                  <v-btn size="small" variant="outlined" @click="openInNew">新視窗檢視</v-btn>
+                  <v-btn size="small" variant="outlined" @click="removeImage">移除圖片</v-btn>
                 </div>
               </v-col>
 
@@ -118,7 +126,7 @@
               </v-col>
             </v-row>
 
-            <div class="d-flex justify-end ga-2">
+            <div class="d-flex justify-end ga-2 py-2">
               <v-btn variant="tonal" @click="cancelEdit">取消</v-btn>
               <v-btn color="primary" :loading="saving" :disabled="uploading" @click="saveEdit"
                 >儲存</v-btn
@@ -290,5 +298,28 @@ onMounted(fetchPost)
   max-width: 1200px;
   width: 1200px;
   margin: 0 auto;
+}
+
+.letter-wrapper {
+  border-radius: 0% !important;
+  padding: 24px;
+  border: 2px solid var(--ink-strong);
+  background: var(--cream);
+  overflow-y: auto;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3) !important;
+  height: calc(100vh - 300px);
+  max-height: calc(100vh - 300px);
+  flex-grow: 1;
+}
+/* 之後做lightbox */
+.letter-image {
+  border: 1px solid #000;
+}
+
+.letter-title {
+  font-size: 1.25rem;
+  font-family: 'font02', 'Times New Roman', Times, serif;
+  font-weight: bolder;
+  letter-spacing: 0.5px;
 }
 </style>

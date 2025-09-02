@@ -1,9 +1,9 @@
 <!-- src/views/me/MeView.vue -->
 <template>
-  <v-container class="py-6" fluid>
+  <v-container class="py-6">
     <div class="d-flex">
       <!-- 左側選單 -->
-      <v-navigation-drawer width="220" permanent location="left" class="pa-4">
+      <v-navigation-drawer width="220" permanent location="left" class="pa-4 ml-12">
         <v-list density="comfortable" nav>
           <v-list-item
             prepend-icon="mdi-account-circle"

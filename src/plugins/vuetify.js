@@ -81,6 +81,7 @@ export default createVuetify({
     },
     VAvatar: {
       size: 40, // 和 appbar-btn--icon 配合
+      
     },
     VTextField: {
       variant: 'outlined',
@@ -118,7 +119,7 @@ export default createVuetify({
       rounded: 'lg',
     },
     VDivider: {
-      thickness: 2,
+      thickness: 3,
       color: 'ink',
     },
     VChip: {

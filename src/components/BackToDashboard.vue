@@ -21,7 +21,29 @@ const goBack = () => {
 </script>
 
 <template>
-  <v-btn variant="text" @click="goBack">
+  <v-btn @click="goBack" class="my-2 back-btn">
+    <img
+      src="https://cdn-icons-png.flaticon.com/128/7531/7531688.png"
+      alt="icon"
+      width="18"
+      height="18"
+      style="vertical-align: middle"
+    />
     {{ label }}
   </v-btn>
 </template>
+
+<style scoped>
+.back-btn {
+  background: var(--c-coral) !important;
+  border: 1px solid #000;
+  color: #111 !important;
+}
+
+.back-btn:hover {
+  background-color: #FFC857 !important;
+  box-shadow:
+    0 4px 0 #111,
+    0 8px 16px rgba(0, 0, 0, 0.08) !important;
+}
+</style>

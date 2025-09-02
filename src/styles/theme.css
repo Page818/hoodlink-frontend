@@ -9,6 +9,10 @@
   --c-sky: #eaf5ff;
   --c-ink: #1f2937;
   --c-gray: #6b7280;
+  --c-rust: #b7410e;
+  --c-olive: #556b2f;
+  --c-mustard: #d2b48c;
+  --c-ink-dark: #111;
 
   --shadow-1: 0 6px 16px rgba(31, 41, 55, 0.08);
   --shadow-2: 0 10px 24px rgba(31, 41, 55, 0.12);
@@ -77,9 +81,14 @@
   color: #fff !important;
 }
 
-/* =========================
-   Decorative Dividers
-   ========================= */
+/* =======裝飾======= */
+.rainbow-deco {
+  width: 300px;
+  height: 50px;
+  background-image: url('/images/rainbowline.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 .wave-divider {
   position: relative;
   height: 24px;
@@ -189,8 +198,11 @@
    ========================= */
 .section-title {
   font-weight: 700;
-  letter-spacing: 0.2px;
   color: var(--c-ink);
+  font-family: 'Playfair Display', 'Courier New', 'IBM Plex Serif', serif;
+  letter-spacing: 0.5px;
+  line-height: 1.6;
+  text-transform: uppercase;
 }
 .subtitle-dim {
   color: var(--c-gray);
@@ -494,4 +506,58 @@ html #app {
   align-items: center;
   gap: 8px;
   font-size: 1.85rem;
+}
+/* 20250902新增 */
+.print-frame {
+  background-image: var(--tx-paper-frame);
+  background-size: cover;
+  border: 2px solid var(--c-ink);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.sticker-label {
+  font-family: 'Courier New', monospace;
+  background: var(--c-mustard);
+  padding: 8px 12px;
+  border: 1px dashed var(--c-ink-dark);
+  transform: rotate(-2deg);
+}
+
+.headline-vintage {
+  /* font-family: 'Playfair Display', serif; */
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--c-ink-dark);
+  border-bottom: 2px solid var(--c-ink-dark);
+  padding-bottom: 4px;
+}
+
+/* 全域 scrollbar 樣式 */
+body,
+*::-webkit-scrollbar {
+  width: 16px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--ink-strong) 0px,
+    var(--ink-strong) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  border-radius: 10;
+  opacity: 0.8;
+  transition: background-color 0.3s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--c-coral);
+  opacity: 0.2;
 }
